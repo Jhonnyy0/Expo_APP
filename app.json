@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "cliente-app-coffeeshop",
-    "slug": "cliente-app-coffeeshop",
+    "name": "cliente-app-Quiropractica",
+    "slug": "cliente-app-Quiropractica",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/coffee-cup.png",
+    "icon": "./assets/Logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/coffeeshop-splash.png",
+      "image": "./assets/Logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#EAD8C0"
+      "backgroundColor": "#000000"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,18 +19,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/coffee-cup-splash.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/Logo.png",
+        "backgroundColor": "#000000"
       },
-      "package": "com.danielwilfredo11.clienteappcoffeeshop"
     },
     "web": {
-      "favicon": "./assets/coffee-cup.png"
+      "favicon": "./assets/Logo.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "714dea9c-fcc5-438b-8445-d9497f069d89"
-      }
-    }
   }
 }

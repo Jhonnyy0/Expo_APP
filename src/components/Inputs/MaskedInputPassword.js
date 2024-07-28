@@ -1,19 +1,15 @@
-import { StyleSheet, TextInput } from 'react-native';
+import { StyleSheet, TextInput} from 'react-native';
 
-export default function InputEmail({ placeHolder, setValor, setTextChange, setEditable, inputStyle }) {
-
+export default function Input({ placeHolder, setValor, setTextChange, inputStyle}) {
     return (
-
         <TextInput
-            style={{...styles.Input, ...inputStyle}}
+        style={{...styles.Input, ...inputStyle}}
             placeholder={placeHolder}
             value={setValor}
             placeholderTextColor={'#FFF'}
             onChangeText={setTextChange}
-            keyboardType="email-address"
-            editable={setEditable}
+            secureTextEntry={true}
         />
-
     );
 }
 
