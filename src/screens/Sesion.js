@@ -56,8 +56,8 @@ export default function Sesion({ navigation }) {
 
         try {
             const formData = new FormData();
-            formData.append('correoClienteLogin', correo);
-            formData.append('contraseñaClienteLogin', clave);
+            formData.append('correo_cliente', correo);
+            formData.append('contra_cliente', clave);
 
             const response = await fetch(`${ip}/expo_2024_v2/api/services/public/clientes.php?action=logIn`, {
                 method: 'POST',
