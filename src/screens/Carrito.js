@@ -102,7 +102,7 @@ const Carrito = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* Componente de modal para editar cantidad */}
+      {/* Componente del modal para poder editar cantidad */}
       <ModalEditarCantidad
         setModalVisible={setModalVisible}
         modalVisible={modalVisible}
