@@ -146,20 +146,20 @@ export default function SignUp({ navigation }) {
                 <Input
                     setValor={nombre}
                     setTextChange={setNombre}
-                    inputStyle={{ backgroundColor: '#8a8a8a' }}
+                    inputStyle={{ backgroundColor: '#3d6817' }}
                 />
                 <Text style={styles.inputTitle}>Apellido:</Text>
                 <Input
                     setValor={apellido}
                     setTextChange={setApellido}
-                    inputStyle={{ backgroundColor: '#8a8a8a' }}
+                    inputStyle={{ backgroundColor: '#3d6817' }}
                 />
                 <Text style={styles.inputTitle}>DUI:</Text>
                 <MaskedInputDui
                     setValor={dui}
                     setDui={setDui}
                     setEditable={true}
-                    inputStyle={{ backgroundColor: '#8a8a8a' }}
+                    inputStyle={{ backgroundColor: '#3d6817' }}
                 />
                 <Text style={styles.inputTitle}>Fecha de Nacimiento:</Text>
                 <View style={styles.contenedorFecha}>
@@ -181,28 +181,28 @@ export default function SignUp({ navigation }) {
                 <MaskedInputTelefono
                     setValor={telefono}
                     setTelefono={setTelefono}
-                    inputStyle={{ backgroundColor: '#8a8a8a' }}
+                    inputStyle={{ backgroundColor: '#3d6817' }}
                 />
                 <Text style={styles.inputTitle}>Correo Electrónico:</Text>
                 <InputEmail
                     setValor={correo}
                     setTextChange={setCorreo}
                     setEditable={true}
-                    inputStyle={{ backgroundColor: '#8a8a8a' }}
+                    inputStyle={{ backgroundColor: '#3d6817' }}
                 />
                 <Text style={styles.inputTitle}>Contraseña:</Text>
                 <InputPass
                     setValor={contraseña}
                     setTextChange={setContraseña}
                     secureTextEntry
-                    inputStyle={{ backgroundColor: '#8a8a8a' }}
+                    inputStyle={{ backgroundColor: '#3d6817' }}
                 />
                 <Text style={styles.inputTitle}>Confirmar Contraseña:</Text>
                 <InputPass
                     setValor={confirmar}
                     setTextChange={setConfirmar}
                     secureTextEntry
-                    inputStyle={{ backgroundColor: '#8a8a8a' }}
+                    inputStyle={{ backgroundColor: '#3d6817' }}
                 />
                 <Boton2
                     mode="contained"
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     contenedorFecha: {
-        backgroundColor: '#8a8a8a',
+        backgroundColor: '#3d6817',
         color: "#fff",
         fontWeight: '600',
         width: 275,
