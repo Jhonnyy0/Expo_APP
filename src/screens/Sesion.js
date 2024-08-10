@@ -25,7 +25,7 @@ export default function Sesion({ navigation }) {
 
     const validarSesion = async () => {
         try {
-            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/clientes.php?action=getUser`, {
+            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cliente.php?action=getUser`, {
                 method: 'GET'
             });
 
@@ -59,7 +59,7 @@ export default function Sesion({ navigation }) {
             formData.append('correo_cliente', correo);
             formData.append('contra_cliente', clave);
 
-            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/clientes.php?action=logIn`, {
+            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cliente.php?action=logIn`, {
                 method: 'POST',
                 body: formData
             });
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         padding: 20,
-        backgroundColor: '#000000',
+        backgroundColor: '#151515',
     },
     logo: {
         width: 180,

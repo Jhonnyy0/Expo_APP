@@ -1,11 +1,13 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Alert, ScrollView, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import * as Constantes from '../utils/constantes'
-import Constants from 'expo-constants';
+import { Ionicons } from '@expo/vector-icons';
+import DateTimePicker from '@react-native-community/datetimepicker';
 // Import de componentes
 import Input from '../components/Inputs/Input'
-import Buttons from '../components/Buttons/Button';
+import Boton3 from '../components/Buttons/Button3';
+import Boton5 from '../components/Buttons/Button5';
 import MaskedInputTelefono from '../components/Inputs/MaskedInputTelefono';
 import MaskedInputDui from '../components/Inputs/MaskedInputDui';
 import InputEmail from '../components/Inputs/InputEmail';
@@ -14,12 +16,16 @@ export default function UpdateUser({ navigation }) {
 
     const ip = Constantes.IP;
 
-    const [nombre, setNombre] = useState('')
-    const [apellido, setApellido] = useState('')
-    const [email, setEmail] = useState('')
-    const [direccion, setDireccion] = useState('')
-    const [dui, setDui] = useState('')
-    const [telefono, setTelefono] = useState('')
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+
+    const [nombre, setNombre] = useState('');
+    const [apellido, setApellido] = useState('');
+    const [correo, setCorreo] = useState('');
+    const [telefono, setTelefono] = useState('');
+    const [dui, setDui] = useState('');
+    const [fechaNacimiento, setFechaNacimiento] = useState('')
 
     // Expresiones regulares para validar DUI y teléfono
     const duiRegex = /^\d{8}-\d$/;
@@ -28,24 +34,46 @@ export default function UpdateUser({ navigation }) {
     // Funcion para llenar los inputs con los datos del usuario
     const fillData = async () => {
         try {
-            const response = await fetch(`${ip}/coffeeshop/api/services/public/cliente.php?action=getUser`, {
+            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cliente.php?action=getUser`, {
                 method: 'GET'
             });
+
             const data = await response.json();
             console.log("Data en actualizar consultada", data);
             if (data.status) {
                 console.log(data.name, 'Valor de editar perfil')
                 setNombre(data.name.nombre_cliente);
                 setApellido(data.name.apellido_cliente);
-                setEmail(data.name.correo_cliente);
-                setDireccion(data.name.direccion_cliente);
+                setCorreo(data.name.correo_cliente);
+                setFechaNacimiento(data.name.nacimiento_cliente);
                 setDui(data.name.dui_cliente);
                 setTelefono(data.name.telefono_cliente);
+            }
+
+            else {
+                Alert.alert('Error', data.error);
+            }
+        }
+
+        catch (error) {
+            Alert.alert('Ocurrió un error al intentar obtener los datos del usuario');
+        }
+    };
+
+    const handleLogout = async () => {
+        try {
+            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cliente.php?action=logOut`, {
+                method: 'GET'
+            });
+            const data = await response.json();
+            if (data.status) {
+                navigation.navigate('Sesion');
+                Alert.alert('Sesion cerrada');
             } else {
                 Alert.alert('Error', data.error);
             }
         } catch (error) {
-            Alert.alert('Ocurrió un error al intentar obtener los datos del usuario');
+            Alert.alert('Error', 'Ocurrió un error al cerrar la sesión');
         }
     };
 
@@ -58,29 +86,34 @@ export default function UpdateUser({ navigation }) {
 
     const editProfile = async () => {
         try {
-            console.log("Datos a enviar", nombre, apellido, email, direccion, dui, telefono)
+            console.log("Datos a enviar", nombre, apellido, correo, genero, dui, telefono)
 
             // Validar los campos
-            if (!nombre.trim() || !apellido.trim() || !email.trim() || !direccion.trim() ||
+            if (!nombre.trim() || !apellido.trim() || !correo.trim() || !genero.trim() ||
                 !dui.trim() || !telefono.trim()) {
                 Alert.alert("Debes llenar todos los campos");
                 return;
-            } else if (!duiRegex.test(dui)) {
+            }
+
+            else if (!duiRegex.test(dui)) {
                 Alert.alert("El DUI debe tener el formato correcto (########-#)");
                 return;
-            } else if (!telefonoRegex.test(telefono)) {
+            }
+
+            else if (!telefonoRegex.test(telefono)) {
                 Alert.alert("El teléfono debe tener el formato correcto (####-####)");
                 return;
             }
 
             // Si todos los campos son válidos, proceder con la creación del usuario
             const formData = new FormData();
-            formData.append('nombreCliente', nombre);
-            formData.append('apellidoCliente', apellido);
-            // formData.append('correoCliente', email);
-            formData.append('direccionCliente', direccion);
-            // formData.append('telefonoCliente', telefono);
-            const response = await fetch(`${ip}/coffeeshop/api/services/public/cliente.php?action=editProfile`, {
+            formData.append('nombre_cliente', nombre);
+            formData.append('apellido_cliente', apellido);
+            formData.append('correo_cliente', correo);
+            formData.append('nacimiento_cliente', fechaNacimiento);
+            formData.append('dui_cliente', dui)
+            formData.append('telefono_cliente', telefono);
+            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cliente.php?action=editProfile`, {
                 method: 'POST',
                 body: formData
             });
@@ -92,10 +125,14 @@ export default function UpdateUser({ navigation }) {
                 Alert.alert('Perfil editado correctamente', '', [
                     { text: 'OK', onPress: () => fillData() },
                 ], { icon: 'success' });
-            } else {
+            }
+
+            else {
                 Alert.alert('Error', data.error);
             }
-        } catch (error) {
+        }
+
+        catch (error) {
             Alert.alert('Ocurrió un error al intentar crear el usuario');
         }
     };
@@ -104,46 +141,123 @@ export default function UpdateUser({ navigation }) {
         navigation.navigate('TabNavigator');
     };
 
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate;
+        setShow(false);
+        setDate(currentDate);
+        /*
+        Codigo para convertir la fecha al formato año-mes-dia */
+
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const day = String(currentDate.getDate()).padStart(2, '0');
+
+        const fechaNueva = `${year}-${month}-${day}`;
+        setFechaNacimiento(fechaNueva)
+    };
+
+    const showDatepicker = () => {
+        showMode('date');
+    };
+
+    const showMode = (currentMode) => {
+        setShow(true);
+        setMode(currentMode);
+    };
+
     return (
         <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollViewStyle}>
-                <Text style={styles.texto}>Actualizar Usuario</Text>
-                <Text style={styles.infoText}>El correo, DUI y teléfono no se pueden modificar. Contactese con el administrador del sistema</Text>
-                <Input
-                    placeHolder='Nombre Cliente'
-                    setValor={nombre}
-                    setTextChange={setNombre}
-                />
-                <Input
-                    placeHolder='Apellido Cliente'
-                    setValor={apellido}
-                    setTextChange={setApellido}
-                />
-                <InputEmail
-                    placeHolder='Email Cliente'
-                    setValor={email}
-                    setTextChange={setEmail}
-                    setEditable={false}
-                />
-                <MaskedInputDui
-                    dui={dui}
-                    setDui={setDui}
-                    setEditable={false}
-                />
-                <MaskedInputTelefono
-                    telefono={telefono}
-                    setTelefono={setTelefono}
-                    setEditable={false}
-                />
-                <Buttons
-                    textoBoton='Editar Usuario'
-                    accionBoton={editProfile}
-                />
-                <Buttons
-                    textoBoton='Volver al Inicio'
-                    accionBoton={volverInicio}
-                />
-            </ScrollView>
+            <Text style={styles.texto}>Datos del perfil</Text>
+            <TouchableOpacity onPress={volverInicio} style={styles.backButton}>
+                <Ionicons name="arrow-back" size={24} color="white" />
+            </TouchableOpacity>
+            <View style={styles.borderedContainer}>
+                <ScrollView contentContainerStyle={styles.scrollViewStyle}>
+                    <View style={styles.inputContainer}>
+                        <Text style={styles.title}>Nombre(s):</Text>
+                        <Input
+                            setValor={nombre}
+                            setTextChange={setNombre}
+                            inputStyle={{
+                                backgroundColor: '#151515', borderBottomWidth: 1, padding: 2,
+                                borderBottomColor: '#FFF', borderRadius: 0, paddingHorizontal: 10,
+                            }}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Text style={styles.title}>Apellido(s):</Text>
+                        <Input
+                            setValor={apellido}
+                            setTextChange={setApellido}
+                            inputStyle={{
+                                backgroundColor: '#151515', borderBottomWidth: 1, padding: 2,
+                                borderBottomColor: '#FFF', borderRadius: 0, paddingHorizontal: 10,
+                            }}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Text style={styles.title}>Correo electrónico:</Text>
+                        <InputEmail
+                            setValor={correo}
+                            setTextChange={setCorreo}
+                            setEditable={false}
+                            inputStyle={{
+                                backgroundColor: '#151515', borderBottomWidth: 1, padding: 2,
+                                borderBottomColor: '#FFF', borderRadius: 0, paddingHorizontal: 10,
+                            }}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Text style={styles.title}>Teléfono:</Text>
+                        <MaskedInputTelefono
+                            telefono={telefono}
+                            setTelefono={setTelefono}
+                            setEditable={false}
+                            inputStyle={{
+                                backgroundColor: '#151515', borderBottomWidth: 1, padding: 2,
+                                borderBottomColor: '#FFF', borderRadius: 0, paddingHorizontal: 10,
+                            }}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Text style={styles.title}>Dui:</Text>
+                        <MaskedInputDui
+                            dui={dui}
+                            setDui={setDui}
+                            setEditable={false}
+                            inputStyle={{
+                                backgroundColor: '#151515', borderBottomWidth: 1, padding: 2,
+                                borderBottomColor: '#FFF', borderRadius: 0, paddingHorizontal: 10,
+                            }}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Text style={styles.title}>Cumpleaños:</Text>
+                        <View style={styles.contenedorFecha}>
+                            <TouchableOpacity onPress={showDatepicker}><Text style={styles.fechaSeleccionar}>{fechaNacimiento}</Text></TouchableOpacity>
+                            {show && (
+                                <DateTimePicker
+                                    testID="dateTimePicker"
+                                    value={date}
+                                    mode={mode}
+                                    is24Hour={true}
+                                    minimumDate={new Date(new Date().getFullYear() - 100, new Date().getMonth(), new Date().getDate())} // Fecha mínima permitida (100 años atrás desde la fecha actual)
+                                    maximumDate={new Date()} // Fecha máxima permitida (fecha actual)
+                                    onChange={onChange}
+                                />
+                            )}
+                        </View>
+                    </View>
+                    <Boton5
+                        textoBoton='Editar Usuario'
+                        accionBoton={editProfile}
+                    />
+                    <Boton3
+                        textoBoton='Cerrar Sesión'
+                        accionBoton={handleLogout}
+                    />
+                </ScrollView>
+            </View>
         </View>
     );
 }
@@ -151,43 +265,58 @@ export default function UpdateUser({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#EAD8C0',
-        paddingTop: Constants.statusBarHeight + 5, // el 5 es para darle un pequeño margen cuando hay una cámara en el centro de la pantalla
+        backgroundColor: '#151515',
+    },
+    borderedContainer: {
+        flex: 1,
+        width: '100%',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        borderTopColor: 'white',
+        borderWidth: 1,
+    },
+    backButton: {
+        position: 'absolute',
+        top: 35,
+        left: 20,
+        zIndex: 1,
     },
     scrollViewStyle: {
+        marginTop: 40,
         alignItems: 'center',
         justifyContent: 'center'
     },
     texto: {
-        color: '#322C2B', fontWeight: '900',
-        fontSize: 20
-    },
-    infoText: {
-        color: '#322C2B',
-        fontWeight: '700',
-        fontSize: 14,
-        marginVertical: 10,
-        textAlign: 'center'
-    },
-    textRegistrar: {
-        color: '#322C2B', fontWeight: '700',
+        textAlign: 'center',
+        fontFamily: 'monospace',
+        marginTop: 70,
+        marginBottom: 40,
+        color: '#FFF',
+        fontWeight: '900',
         fontSize: 18
     },
-    fecha: {
+    title: {
+        marginVertical: 2,
+        fontFamily: 'monospace',
+        color: 'white',
         fontWeight: '600',
-        color: '#FFF'
+        fontSize: 14
     },
     fechaSeleccionar: {
-        fontWeight: '700',
-        color: '#322C2B',
-        textDecorationLine: 'underline'
+        borderBottomWidth: 1,
+        borderBottomColor: '#FFF',
+        fontSize: 15,
+        fontWeight: '800',
+        color: 'white',
+        width: 275,
+        padding: 2,
+        paddingHorizontal: 10,
+        marginVertical: 15
     },
     contenedorFecha: {
-        backgroundColor: '#A79277',
-        color: "#fff", fontWeight: '800',
-        width: 250,
-        borderRadius: 5,
-        padding: 5,
-        marginVertical: 10
-    }
+        backgroundColor: '#151515',
+        color: "#fff",
+        fontWeight: '600',
+        borderRadius: 20,
+    },
 });
