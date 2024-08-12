@@ -10,22 +10,19 @@ import Constants from 'expo-constants';
 import * as Constantes from '../utils/constantes';
 import Buttons from '../components/Buttons/Button';
 import CarritoCard from '../components/CarritoCard/CarritoCard';
-import ModalEditarCantidad from '../components/Modales/ModalEditarCantidad';
 
 const Agenda = ({ navigation }) => {
     // Estado para almacenar los detalles del carrito
-    const [dataDetalleCarrito, setDataDetalleCarrito] = useState([]);
+    const [dataDetalleAgenda, setDataDetalleAgenda] = useState([]);
     // Estado para el id del detalle seleccionado para modificar
-    const [idDetalle, setIdDetalle] = useState(null);
-    // Estado para la cantidad del producto seleccionado en el carrito
-    const [cantidadProductoCarrito, setCantidadProductoCarrito] = useState(0);
+    const [idCita, setIdCita] = useState(null);
     // Estado para controlar la visibilidad del modal de edición de cantidad
     const [modalVisible, setModalVisible] = useState(false);
     // IP del servidor
     const ip = Constantes.IP;
 
     // Función para navegar hacia atrás a la pantalla de productos
-    const backProducts = () => {
+    const backQuiropractica = () => {
         navigation.navigate('Quiropractica');
     };
 
@@ -33,111 +30,65 @@ const Agenda = ({ navigation }) => {
     useFocusEffect(
         // La función useFocusEffect ejecuta un efecto cada vez que la pantalla se enfoca.
         React.useCallback(() => {
-            getDetalleCarrito(); // Llama a la función getDetalleCarrito.
+            getDetalleCita(); // Llama a la función getDetalleCarrito.
         }, [])
     );
 
-    // Función para obtener los detalles del carrito desde el servidor
-    const getDetalleCarrito = async () => {
+    // Función para obtener los detalles de la cita desde el servidor
+    const getDetalleCita = async () => {
         try {
-            const response = await fetch(`${ip}/coffeeshop/api/services/public/pedido.php?action=readDetail`, {
+            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cita.php?action=readAllCliente`, {
                 method: 'GET',
             });
             const data = await response.json();
-            console.log(data, "Data desde getDetalleCarrito")
+            console.log(data, "Data desde getCita")
             if (data.status) {
-                setDataDetalleCarrito(data.dataset);
+                setDataDetalleAgenda(data.dataset);
             } else {
-                console.log("No hay detalles del carrito disponibles")
+                console.log("No hay detalles de citas disponibles")
                 //Alert.alert('ADVERTENCIA', data.error);
             }
         } catch (error) {
             console.error(error, "Error desde Catch");
-            Alert.alert('Error', 'Ocurrió un error al listar las categorias');
+            Alert.alert('Error', 'Ocurrió un error al listar la agenda');
         }
     };
 
-    // Función para finalizar el pedido
-    const finalizarPedido = async () => {
-        try {
-            const response = await fetch(`${ip}/coffeeshop/api/services/public/pedido.php?action=finishOrder`, {
-                method: 'GET',
-            });
-            const data = await response.json();
-            if (data.status) {
-                Alert.alert("Se finalizó la compra correctamente")
-                setDataDetalleCarrito([]); // Limpia la lista de detalles del carrito
-                navigation.navigate('TabNavigator', { screen: 'Productos' });
-            } else {
-                Alert.alert('Error', data.error);
-            }
-        } catch (error) {
-            Alert.alert('Error', 'Ocurrió un error al finalizar pedido');
-        }
-    };
-
-    // Función para manejar la modificación de un detalle del carrito
-    const handleEditarDetalle = (idDetalle, cantidadDetalle) => {
-        setModalVisible(true);
-        setIdDetalle(idDetalle);
-        setCantidadProductoCarrito(cantidadDetalle);
-    };
-
-    // Función para renderizar cada elemento del carrito
+    // Función para renderizar cada elemento de la agenda
     const renderItem = ({ item }) => (
         <CarritoCard
             item={item}
-            cargarCategorias={getDetalleCarrito}
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
-            setCantidadProductoCarrito={setCantidadProductoCarrito}
-            cantidadProductoCarrito={cantidadProductoCarrito}
-            idDetalle={idDetalle}
-            setIdDetalle={setIdDetalle}
-            accionBotonDetalle={handleEditarDetalle}
-            getDetalleCarrito={getDetalleCarrito}
-            updateDataDetalleCarrito={setDataDetalleCarrito} // Nueva prop para actualizar la lista
+            idCita={idCita}
+            setIdCita={setIdCita}
+
+            getDetalleCita={getDetalleCita}
         />
     );
 
     return (
         <View style={styles.container}>
-            {/* Componente del modal para poder editar cantidad */}
-            <ModalEditarCantidad
-                setModalVisible={setModalVisible}
-                modalVisible={modalVisible}
-                idDetalle={idDetalle}
-                setIdDetalle={setIdDetalle}
-                setCantidadProductoCarrito={setCantidadProductoCarrito}
-                cantidadProductoCarrito={cantidadProductoCarrito}
-                getDetalleCarrito={getDetalleCarrito}
-            />
 
             {/* Título de la pantalla */}
             <Text style={styles.texto}>Agenda de citas</Text>
 
             {/* Lista de detalles del carrito */}
-            {dataDetalleCarrito.length > 0 ? (
+            {dataDetalleAgenda.length > 0 ? (
                 <FlatList
-                    data={dataDetalleCarrito}
+                    data={dataDetalleAgenda}
                     renderItem={renderItem}
-                    keyExtractor={(item) => item.id_detalle.toString()}
+                    keyExtractor={(item) => item.id_cita.toString()}
                 />
             ) : (
-                <Text style={styles.titleDetalle}>No hay citas disponibles.</Text>
+                <Text style={styles.titleDetalle}>No hay citas disponiblesa.</Text>
             )}
 
             {/* Botones de finalizar pedido y regresar a productos */}
             <View style={styles.containerButtons}>
-                {dataDetalleCarrito.length > 0 && (
-                    <Buttons
-                        textoBoton='Finalizar Pedido'
-                        accionBoton={finalizarPedido}
-                    />
-                )}
                 <Buttons
                     textoBoton='Regresar a Quiropractica'
-                    accionBoton={backProducts}
+                    accionBoton={backQuiropractica}
                 />
             </View>
         </View>
