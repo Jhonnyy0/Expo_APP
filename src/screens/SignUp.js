@@ -15,7 +15,7 @@ export default function SignUp({ navigation }) {
 
     const ip = Constantes.IP;
 
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(new Date(new Date().getFullYear() - 18, new Date().getMonth(), new Date().getDate()));
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 

@@ -3,11 +3,9 @@ import { Text, TouchableOpacity, View, StyleSheet, FlatList, Alert } from 'react
 import Constants from 'expo-constants';
 import * as Constantes from '../../utils/constantes'
 
-const CarritoCard = ({ item,
+const AgendaCard = ({ item,
     modalVisible,
     setModalVisible,
-    cantidadProductoCarrito,
-    setCantidadProductoCarrito,
     accionBotonDetalle,
     idCita,
     setIdCita, getDetalleCita, updateDataDetalleCita }) => {
@@ -53,21 +51,33 @@ const CarritoCard = ({ item,
 
     return (
         <View style={styles.itemContainer}>
-            <Text style={styles.itemText}>Id de registro: {item.id_cita}</Text>
-            <Text style={styles.itemText}>Fecha de la solicitud: {item.fecha_creacion_cita}</Text>
-            <Text style={styles.itemText}>Estado: En espera de validación</Text>
-            <Text style={styles.itemText}>tipo servicio: {item.tipo_servicio}</Text>
+            <View style={styles.row}>
+                <Text style={styles.itemTitle}>Id de registro: </Text>
+                <Text style={styles.itemText}>{item.id_cita}</Text>
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.itemTitle}>Fecha de la solicitud: </Text>
+                <Text style={styles.itemText}>{item.fecha_creacion_cita}</Text>
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.itemTitle}>Estado: </Text>
+                <Text style={styles.itemText}>En espera de validación</Text>
+            </View>
+            <View style={styles.row}>
+                <Text style={styles.itemTitle}>Tipo servicio: </Text>
+                <Text style={styles.itemText}>{item.tipo_servicio}</Text>
+            </View>
 
             <TouchableOpacity style={styles.deleteButton}
                 onLongPress={() => handleDeleteDetalleCita(item.id_cita)}
             >
-                <Text style={styles.buttonText}>Eliminar de la agenda</Text>
+                <Text style={styles.buttonText}>Cancelar cita</Text>
             </TouchableOpacity>
         </View>
     );
 };
 
-export default CarritoCard;
+export default AgendaCard;
 
 const styles = StyleSheet.create({
     container: {
@@ -86,7 +96,7 @@ const styles = StyleSheet.create({
     itemContainer: {
         padding: 16,
         marginVertical: 8,
-        backgroundColor: '#fff',
+        backgroundColor: '#000',
         borderRadius: 8,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -94,45 +104,33 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 2,
     },
+    row: {
+        flexDirection: 'row',
+        marginBottom: 4,
+    },
+    itemTitle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#fff',
+    },
     itemText: {
         fontSize: 16,
-        marginBottom: 4,
-        color: '#333',
-    },
-    modifyButton: {
-        borderWidth: 1,
-        borderColor: '#8F6B58',
-        borderRadius: 8,
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-        backgroundColor: '#8F6B58', // Light brown color for modify button
-        marginVertical: 4,
+        color: '#fff',
     },
     deleteButton: {
         borderWidth: 1,
-        borderColor: '#D2691E',
+        borderColor: '#0c84e4',
         borderRadius: 8,
         paddingVertical: 8,
         paddingHorizontal: 16,
-        backgroundColor: '#D2691E', // Darker orange color for delete button
+        backgroundColor: '#0c84e4', // Darker orange color for delete button
         marginVertical: 4,
     },
     buttonText: {
-        textAlign: 'center',
-        color: '#fff',
-        fontSize: 16,
-    },
-    finalButton: {
-        backgroundColor: '#A0522D', // Sienna color for final action buttons
-        padding: 16,
-        borderRadius: 8,
-        marginVertical: 8,
-    },
-    finalButtonText: {
-        color: '#fff',
-        fontSize: 18,
-        textAlign: 'center',
         fontWeight: 'bold',
+        textAlign: 'center',
+        color: '#fff',
+        fontSize: 17,
     },
     containerButtons: {
         justifyContent: 'center',

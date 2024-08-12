@@ -1,7 +1,7 @@
 // Importaciones necesarias
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, FlatList, Alert } from 'react-native';
-
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useFocusEffect } from '@react-navigation/native';
 // Importa la función useFocusEffect de @react-navigation/native, 
 // que permite ejecutar un efecto cada vez que la pantalla se enfoca.
@@ -9,7 +9,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import * as Constantes from '../utils/constantes';
 import Buttons from '../components/Buttons/Button';
-import CarritoCard from '../components/CarritoCard/CarritoCard';
+import AgendaCard from '../components/Cards/AgendaCard';
 
 const Agenda = ({ navigation }) => {
     // Estado para almacenar los detalles del carrito
@@ -56,7 +56,7 @@ const Agenda = ({ navigation }) => {
 
     // Función para renderizar cada elemento de la agenda
     const renderItem = ({ item }) => (
-        <CarritoCard
+        <AgendaCard
             item={item}
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
@@ -71,7 +71,7 @@ const Agenda = ({ navigation }) => {
         <View style={styles.container}>
 
             {/* Título de la pantalla */}
-            <Text style={styles.texto}>Agenda de citas</Text>
+            <Text style={styles.texto}>Agenda de citas <FontAwesome name="address-book" size={24} color="#fff" style={styles.icon} /></Text>
 
             {/* Lista de detalles del carrito */}
             {dataDetalleAgenda.length > 0 ? (

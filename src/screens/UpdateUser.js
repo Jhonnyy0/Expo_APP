@@ -4,6 +4,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import * as Constantes from '../utils/constantes'
 import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // Import de componentes
 import Input from '../components/Inputs/Input'
 import Boton3 from '../components/Buttons/Button3';
@@ -16,7 +17,7 @@ export default function UpdateUser({ navigation }) {
 
     const ip = Constantes.IP;
 
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(new Date(new Date().getFullYear() - 18, new Date().getMonth(), new Date().getDate()));
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
@@ -67,7 +68,7 @@ export default function UpdateUser({ navigation }) {
             });
             const data = await response.json();
             if (data.status) {
-                navigation.navigate('Sesion');
+                navigation.navigate('Bienvenida');
                 Alert.alert('Sesion cerrada');
             } else {
                 Alert.alert('Error', data.error);
@@ -167,7 +168,7 @@ export default function UpdateUser({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.texto}>Datos del perfil</Text>
+            <Text style={styles.texto}>Datos del perfil <FontAwesome name="user" size={24} color="#fff" style={styles.icon} /></Text>
             <TouchableOpacity onPress={volverInicio} style={styles.backButton}>
                 <Ionicons name="arrow-back" size={24} color="white" />
             </TouchableOpacity>

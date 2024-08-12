@@ -21,10 +21,10 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/Logo.png",
         "backgroundColor": "#000000"
-      },
+      }
     },
     "web": {
       "favicon": "./assets/Logo.png"
-    },
+    }
   }
 }
