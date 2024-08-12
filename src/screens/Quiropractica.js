@@ -53,7 +53,7 @@ export default function Quiropractica({ navigation }) {
                 setDataProductos(data.dataset)
             } else {
                 console.log("Data en el ELSE error productos", data);
-                // Alert the user about the error
+                // Alerta del ususario sobre el error
                 Alert.alert('Error productos', data.error);
             }
         } catch (error) {
@@ -134,7 +134,7 @@ export default function Quiropractica({ navigation }) {
                 <FlatList
                     data={dataProductos}
                     keyExtractor={(item) => item.id_producto}
-                    renderItem={({ item }) => ( // Util izamos destructuración para obtener directamente el item
+                    renderItem={({ item }) => ( // Utilizamos destructuración para obtener directamente el item
                         <ProductoCard ip={ip}
                             imagenProducto={item.imagen_producto}
                             idProducto={item.id_producto}
