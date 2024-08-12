@@ -15,6 +15,7 @@ export default function Bienvenida({ navigation }) {
                 source={require('../../assets/Logo.png')}
                 style={styles.logo}
             />
+            <Text style={styles.title}>Bienvenido a:</Text>
             <Text style={styles.texto}>QUIROPRACTICA ESPECÍFICA</Text>
             <Boton4
                 mode="contained"
@@ -46,5 +47,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginVertical: 10,
         color: '#FFF',
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: '500',
+        textAlign: 'center',
+        color: '#757575',
     }
 });
