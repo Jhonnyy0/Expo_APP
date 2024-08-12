@@ -114,7 +114,7 @@ const Agenda = ({ navigation }) => {
             />
 
             {/* Título de la pantalla */}
-            <Text style={styles.title}>Carrito de Compras</Text>
+            <Text style={styles.texto}>Agenda de citas</Text>
 
             {/* Lista de detalles del carrito */}
             {dataDetalleCarrito.length > 0 ? (
@@ -124,7 +124,7 @@ const Agenda = ({ navigation }) => {
                     keyExtractor={(item) => item.id_detalle.toString()}
                 />
             ) : (
-                <Text style={styles.titleDetalle}>No hay detalles del carrito disponibles.</Text>
+                <Text style={styles.titleDetalle}>No hay citas disponibles.</Text>
             )}
 
             {/* Botones de finalizar pedido y regresar a productos */}
@@ -136,7 +136,7 @@ const Agenda = ({ navigation }) => {
                     />
                 )}
                 <Buttons
-                    textoBoton='Regresar a productos'
+                    textoBoton='Regresar a Quiropractica'
                     accionBoton={backProducts}
                 />
             </View>
@@ -150,23 +150,26 @@ export default Agenda;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#EAD8C0',
+        backgroundColor: '#151515',
         paddingTop: Constants.statusBarHeight,
         paddingHorizontal: 16,
     },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
+    texto: {
         textAlign: 'center',
-        marginVertical: 16,
-        color: '#5C3D2E',
+        fontFamily: 'monospace',
+        marginTop: 50,
+        marginBottom: 20,
+        color: '#FFF',
+        fontWeight: '900',
+        fontSize: 18
     },
     titleDetalle: {
-        fontSize: 20,
-        fontWeight: '600',
         textAlign: 'center',
-        marginVertical: 16,
-        color: '#5C3D2E',
+        fontFamily: 'monospace',
+        marginBottom: 40,
+        color: '#FFF',
+        fontWeight: '900',
+        fontSize: 16
     },
     containerButtons: {
         justifyContent: 'center',

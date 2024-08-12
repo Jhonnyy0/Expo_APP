@@ -34,7 +34,7 @@ export default function UpdateUser({ navigation }) {
     // Funcion para llenar los inputs con los datos del usuario
     const fillData = async () => {
         try {
-            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cliente.php?action=getUser`, {
+            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cliente.php?action=getUserMobile`, {
                 method: 'GET'
             });
 
@@ -86,10 +86,10 @@ export default function UpdateUser({ navigation }) {
 
     const editProfile = async () => {
         try {
-            console.log("Datos a enviar", nombre, apellido, correo, genero, dui, telefono)
+            console.log("Datos a enviar", nombre, apellido, correo, fechaNacimiento, dui, telefono)
 
             // Validar los campos
-            if (!nombre.trim() || !apellido.trim() || !correo.trim() || !genero.trim() ||
+            if (!nombre.trim() || !apellido.trim() || !correo.trim() || !fechaNacimiento.trim() ||
                 !dui.trim() || !telefono.trim()) {
                 Alert.alert("Debes llenar todos los campos");
                 return;
@@ -107,14 +107,14 @@ export default function UpdateUser({ navigation }) {
 
             // Si todos los campos son válidos, proceder con la creación del usuario
             const formData = new FormData();
-            formData.append('nombre_cliente', nombre);
-            formData.append('apellido_cliente', apellido);
-            formData.append('correo_cliente', correo);
-            formData.append('nacimiento_cliente', fechaNacimiento);
-            formData.append('dui_cliente', dui)
-            formData.append('telefono_cliente', telefono);
+            formData.append('nombreCliente', nombre);
+            formData.append('apellidoCliente', apellido);
+            formData.append('correoCliente', correo);
+            formData.append('nacimientoCliente', fechaNacimiento);
+            formData.append('duiCliente', dui)
+            formData.append('telefonoCliente', telefono);
             const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cliente.php?action=editProfile`, {
-                method: 'POST',
+                method: 'POST', 
                 body: formData
             });
 
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     },
     backButton: {
         position: 'absolute',
-        top: 35,
+        top: 40,
         left: 20,
         zIndex: 1,
     },
