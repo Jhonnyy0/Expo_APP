@@ -1,3 +1,5 @@
+use db_quiropractica;
+
 INSERT INTO tb_clientes (nombre_cliente, apellido_cliente, dui_cliente, correo_cliente, contrasenia_cliente, telefono_cliente, nacimiento_cliente, estado_cliente) 
 VALUES 
 ('Alice', 'Johnson', '1234567890', 'alice.johnson@example.com', 'pass123', '123456789', '1990-05-15', 1),
