@@ -1,3 +1,5 @@
+DROP DATABASE if EXISTS db_quiropractica;
+
 CREATE DATABASE db_quiropractica;
 
 USE db_quiropractica;
