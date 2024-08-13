@@ -73,10 +73,10 @@ VALUES
 INSERT INTO tb_citas (id_cliente, id_servicio) 
 VALUES 
     (1, 2),
-    (2, 1),
-    (3, 3),
-    (4, 1),
-    (5, 2);
+    (1, 1),
+    (1, 3),
+    (1, 1),
+    (1, 2);
 
 INSERT INTO tb_nombres_tratamientos (nombre_tratamiento, notas_adicionales, id_cita) 
 VALUES 
