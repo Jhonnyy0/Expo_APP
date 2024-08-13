@@ -8,6 +8,9 @@ import TabNavigator from './src/tabNavigator/TabNavigator.js'; // Importa el nav
 import Bienvenida from './src/screens/Bienvenida.js'; // Importa la pantalla de bienvenida
 import Agenda from './src/screens/Agenda.js'; // Importa la pantalla de agenda
 import Historial from './src/screens/Historial.js'; // Importa la pantalla de historial
+import Codigo from './src/screens/Codigo.js'; // Importa la pantalla de codigo
+import Recuperacion from './src/screens/Recuperacion.js'; // Importa la pantalla de recuperacion
+import Contraseña from './src/screens/Contraseña.js'; // Importa la pantalla de contraseña
 
 export default function App() {
 
@@ -27,6 +30,9 @@ export default function App() {
                 <Stack.Screen name="TabNavigator" component={TabNavigator} />
                 <Stack.Screen name='Agenda' component={Agenda} />
                 <Stack.Screen name='Historial' component={Historial} />
+                <Stack.Screen name='Codigo' component={Codigo} />
+                <Stack.Screen name='Recuperacion' component={Recuperacion} />
+                <Stack.Screen name='Contraseña' component={Contraseña} />
             </Stack.Navigator>
         </NavigationContainer>
     );

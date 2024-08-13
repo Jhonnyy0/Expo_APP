@@ -89,6 +89,11 @@ export default function Sesion({ navigation }) {
         navigation.navigate('SignUp');
     };
 
+    const handleNavigateToCode= async () => {
+        // Función para navegar a la pantalla de registro
+        navigation.navigate('Codigo');
+    };
+
     return (
         <View style={styles.container}>
             <Image
@@ -112,10 +117,22 @@ export default function Sesion({ navigation }) {
                 textoBoton='Aceptar'
                 accionBoton={handlerLogin}
             />
-            <Boton
-                textoBoton="¿No tienes una cuenta?"
-                accionBoton={handleNavigateToRegister}
-            />
+            <View style={styles.containerTitle}>
+                <Text style={styles.subtitle}>No tengo una cuenta</Text>
+                <Boton
+                    textoBoton="Registrate."
+                    accionBoton={handleNavigateToRegister}
+                    buttonStyle={{ color: '#3d6817', marginTop: 0 }}
+                />
+            </View>
+            <View style={styles.containerTitle}>
+                <Text style={{...styles.subtitle, marginTop: -15}}>Olvide mi contraseña</Text>
+                <Boton
+                    textoBoton="Envia un codigo."
+                    accionBoton={handleNavigateToCode}
+                    buttonStyle={{ color: '#3d6817', marginTop: -15 }}
+                />
+            </View>
         </View>
     );
 };
@@ -140,6 +157,16 @@ const styles = StyleSheet.create({
         fontWeight: '300',
         textAlign: 'center',
         marginVertical: 20,
-        color: '#FFF', // Brown color for the title
-    }
+        color: '#FFF',
+    },
+    containerTitle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    subtitle: {
+        fontSize: 15,
+        fontWeight: '400',
+        color: '#FFF',
+    },
 });
