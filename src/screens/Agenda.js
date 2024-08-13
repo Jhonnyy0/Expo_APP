@@ -54,7 +54,7 @@ const Agenda = ({ navigation }) => {
             item={item}
             idCita={idCita}
             setIdCita={setIdCita}
-            getDetalleCita={getDetalleCita}
+            getDetalleCita={setDataDetalleAgenda}
         />
     );
 

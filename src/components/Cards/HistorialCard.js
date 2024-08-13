@@ -26,6 +26,10 @@ const HistorialCard = ({ item }) => {
                 <Text style={styles.itemTitle}>▸  Empleado a cargo: </Text>
                 <Text style={styles.itemText}>{item.nombre_empleado}</Text>
             </View>
+            <View style={styles.row}>
+                <Text style={styles.itemTitle}>▸  Numero de sesiones: </Text>
+                <Text style={styles.itemText}>{item.numero_seciones}</Text>
+            </View>
         </View>
     );
 };

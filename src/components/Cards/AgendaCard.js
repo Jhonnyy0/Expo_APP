@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View, StyleSheet, Alert } from 'react-native';
 import Constants from 'expo-constants';
 import * as Constantes from '../../utils/constantes'
 
-const AgendaCard = ({ item, updateDataDetalleCita }) => {
+const AgendaCard = ({ item, getDetalleCita }) => {
 
     const ip = Constantes.IP;
 
@@ -22,8 +22,8 @@ const AgendaCard = ({ item, updateDataDetalleCita }) => {
                         text: 'Eliminar',
                         onPress: async () => {
                             const formData = new FormData();
-                            formData.append('id_cita', id_cita);
-                            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cita.php?action=deleteDetail`, {
+                            formData.append('idCita', id_cita);
+                            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cita.php?action=deleteRow`, {
                                 method: 'POST',
                                 body: formData
                             });
@@ -31,9 +31,9 @@ const AgendaCard = ({ item, updateDataDetalleCita }) => {
                             if (data.status) {
                                 Alert.alert('Datos eliminados correctamente de la agenda');
                                 // Llamar a la función de actualización para actualizar la lista
-                                updateDataDetalleCita(prevData => prevData.filter(item => item.id_cita !== id_cita));
+                                getDetalleCita(prevData => prevData.filter(item => item.id_cita !== id_cita));
                             } else {
-                                Alert.alert('Error al eliminar del carrito', data.error);
+                                Alert.alert('Error al eliminar de la agenda', data.error);
                             }
                         }
                     }
@@ -64,7 +64,7 @@ const AgendaCard = ({ item, updateDataDetalleCita }) => {
             </View>
 
             <TouchableOpacity style={styles.deleteButton}
-                onLongPress={() => handleDeleteDetalleCita(item.id_cita)}
+                onPress={() => handleDeleteDetalleCita(item.id_cita)}
             >
                 <Text style={styles.buttonText}>Cancelar cita</Text>
             </TouchableOpacity>

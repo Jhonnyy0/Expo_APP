@@ -23,7 +23,7 @@ export default function Recuperacion({ navigation }) {
                 source={require('../../assets/Logo.png')}
                 style={styles.logo}
             />
-            <Text style={styles.texto}>CAMBIAR CONTRASEÑA</Text>
+            <Text style={styles.texto}>CODIGO DE RECUPERACIÓN</Text>
             <Text style={styles.subtitulo}>Ingresa el codigo que hemos enviado a tu correo electronico, no lo compartas con nadie.</Text>
             <View style={styles.containerInput}>
                 <Input setEditable={true} inputStyle={{ width: 60 }} />

@@ -23,7 +23,7 @@ export default function Contraseña({ navigation }) {
                 source={require('../../assets/Logo.png')}
                 style={styles.logo}
             />
-            <Text style={styles.texto}>CODIGO DE RECUPERACIÓN</Text>
+            <Text style={styles.texto}>REESTABLECER CONTRASEÑA</Text>
             <Text style={styles.subtitulo}>Vuelve a crear una contraseña que recuerdes para tu cuenta.</Text>
             <InputPass
                 placeHolder='Contraseña'
