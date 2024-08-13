@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Text, TouchableOpacity, View, StyleSheet, FlatList, Alert } from 'react-native';
+import React from 'react';
+import { Text, TouchableOpacity, View, StyleSheet, Alert } from 'react-native';
 import Constants from 'expo-constants';
 import * as Constantes from '../../utils/constantes'
 
-const AgendaCard = ({ item,
-    modalVisible,
-    setModalVisible,
-    accionBotonDetalle,
-    idCita,
-    setIdCita, getDetalleCita, updateDataDetalleCita }) => {
+const AgendaCard = ({ item, updateDataDetalleCita }) => {
 
     const ip = Constantes.IP;
 
@@ -52,19 +47,19 @@ const AgendaCard = ({ item,
     return (
         <View style={styles.itemContainer}>
             <View style={styles.row}>
-                <Text style={styles.itemTitle}>Id de registro: </Text>
+                <Text style={styles.itemTitle}>▸  Id de registro: </Text>
                 <Text style={styles.itemText}>{item.id_cita}</Text>
             </View>
             <View style={styles.row}>
-                <Text style={styles.itemTitle}>Fecha de la solicitud: </Text>
+                <Text style={styles.itemTitle}>▸  Fecha de la solicitud: </Text>
                 <Text style={styles.itemText}>{item.fecha_creacion_cita}</Text>
             </View>
             <View style={styles.row}>
-                <Text style={styles.itemTitle}>Estado: </Text>
+                <Text style={styles.itemTitle}>▸  Estado: </Text>
                 <Text style={styles.itemText}>En espera de validación</Text>
             </View>
             <View style={styles.row}>
-                <Text style={styles.itemTitle}>Tipo servicio: </Text>
+                <Text style={styles.itemTitle}>▸  Tipo servicio: </Text>
                 <Text style={styles.itemText}>{item.tipo_servicio}</Text>
             </View>
 
@@ -91,18 +86,18 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         marginVertical: 16,
-        color: '#5C3D2E', // Brown color for the title
+        color: '#5C3D2E',
     },
     itemContainer: {
         padding: 16,
         marginVertical: 8,
         backgroundColor: '#000',
         borderRadius: 8,
-        shadowColor: '#000',
+        shadowColor: '#0c84e4',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 2,
+        elevation: 4,
     },
     row: {
         flexDirection: 'row',
@@ -115,6 +110,7 @@ const styles = StyleSheet.create({
     },
     itemText: {
         fontSize: 16,
+        fontWeight: '400',
         color: '#fff',
     },
     deleteButton: {

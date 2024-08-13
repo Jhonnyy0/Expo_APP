@@ -6,39 +6,39 @@ import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import * as Constantes from '../utils/constantes';
-import AgendaCard from '../components/Cards/AgendaCard';
+import HistorialCard from '../components/Cards/HistorialCard';
 
-const Agenda = ({ navigation }) => {
-    // Estado para almacenar los detalles de la agenda
-    const [dataDetalleAgenda, setDataDetalleAgenda] = useState([]);
+const Historial = ({ navigation }) => {
+    // Estado para almacenar los detalles del historial
+    const [dataDetalleHistorial, setDataDetalleHistorial] = useState([]);
     // Estado para el id del detalle seleccionado para modificar
     const [idCita, setIdCita] = useState(null);
     // IP del servidor
     const ip = Constantes.IP;
 
-    // Función para navegar hacia atrás a la pantalla de la agenda
+    // Función para navegar hacia atrás a la pantalla del historial
     const backCitas = () => {
         navigation.navigate('Citas');
     };
 
-    // Efecto para cargar los detalles del carrito al cargar la pantalla o al enfocarse en ella
+    // Efecto para cargar los detalles del historial al cargar la pantalla o al enfocarse en ella
     useFocusEffect(
         // La función useFocusEffect ejecuta un efecto cada vez que la pantalla se enfoca.
         React.useCallback(() => {
-            getDetalleCita(); // Llama a la función getDetalleCita.
+            getDetalleHistorial(); // Llama a la función getDetalleHistorial.
         }, [])
     );
 
-    // Función para obtener los detalles de la cita desde el servidor
-    const getDetalleCita = async () => {
+    // Función para obtener los detalles del historial desde el servidor
+    const getDetalleHistorial = async () => {
         try {
-            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cita.php?action=readAllCliente`, {
+            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cita.php?action=readAllClienteAprobado`, {
                 method: 'GET',
             });
             const data = await response.json();
             console.log(data, "Data desde getCita")
             if (data.status) {
-                setDataDetalleAgenda(data.dataset);
+                setDataDetalleHistorial(data.dataset);
             } else {
                 console.log("No hay detalles de citas disponibles")
             }
@@ -50,11 +50,11 @@ const Agenda = ({ navigation }) => {
 
     // Función para renderizar cada elemento de la agenda
     const renderItem = ({ item }) => (
-        <AgendaCard
+        <HistorialCard
             item={item}
             idCita={idCita}
             setIdCita={setIdCita}
-            getDetalleCita={getDetalleCita}
+            getDetalleHistorial={getDetalleHistorial}
         />
     );
 
@@ -64,26 +64,26 @@ const Agenda = ({ navigation }) => {
                 <Ionicons name="arrow-back" size={24} color="white" />
             </TouchableOpacity>
             {/* Título de la pantalla */}
-            <Text style={styles.texto}>Agenda de citas <FontAwesome name="sticky-note" size={24} color="#fff" style={styles.icon} /></Text>
-            <Text style={styles.subtitulo}>Información de los registros de citas en espera de ser aceptadas por un empleado. </Text>
+            <Text style={styles.texto}>Historial de citas <FontAwesome name="sticky-note" size={24} color="#fff" style={styles.icon} /></Text>
+            <Text style={styles.subtitulo}>Información del historial de citas terminadas o en proceso de ser finalizadas. </Text>
             <View style={{ alignItems: 'center' }}>
                 <FontAwesome name="caret-down" size={24} color="#fff" style={styles.icon} />
             </View>
-            {/* Lista de detalles de la agenda */}
-            {dataDetalleAgenda.length > 0 ? (
+            {/* Lista de detalles del historial */}
+            {dataDetalleHistorial.length > 0 ? (
                 <FlatList
-                    data={dataDetalleAgenda}
+                    data={dataDetalleHistorial}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.id_cita.toString()}
                 />
             ) : (
-                <Text style={styles.titleDetalle}>No hay citas disponibles.</Text>
+                <Text style={styles.titleDetalle}>No hay historial disponibles.</Text>
             )}
         </View>
     );
 };
 
-export default Agenda;
+export default Historial;
 
 // Estilos
 const styles = StyleSheet.create({

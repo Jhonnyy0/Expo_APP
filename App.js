@@ -6,6 +6,8 @@ import SignUp from './src/screens/SignUp.js'; // Importa la pantalla de Registro
 import UpdateUser from './src/screens/UpdateUser.js'; // Importa la pantalla de Actualización de Usuario
 import TabNavigator from './src/tabNavigator/TabNavigator.js'; // Importa el navegador de pestañas
 import Bienvenida from './src/screens/Bienvenida.js'; // Importa la pantalla de bienvenida
+import Agenda from './src/screens/Agenda.js'; // Importa la pantalla de agenda
+import Historial from './src/screens/Historial.js'; // Importa la pantalla de historial
 
 export default function App() {
 
@@ -23,6 +25,8 @@ export default function App() {
                 <Stack.Screen name="SignUp" component={SignUp} />
                 <Stack.Screen name="UpdateUser" component={UpdateUser} />
                 <Stack.Screen name="TabNavigator" component={TabNavigator} />
+                <Stack.Screen name='Agenda' component={Agenda} />
+                <Stack.Screen name='Historial' component={Historial} />
             </Stack.Navigator>
         </NavigationContainer>
     );

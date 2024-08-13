@@ -6,7 +6,7 @@ import { Platform } from 'react-native';
 // Importa tus componentes de pantalla aquí
 import Quiropractica from '../screens/Quiropractica';
 import Home from '../screens/Home';
-import Agenda from '../screens/Agenda';
+import Citas from '../screens/Citas';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +29,7 @@ const TabNavigator = () => {
                         iconName = focused ? 'home' : 'home-outline';
                     } else if (route.name === 'Quiropractica') {
                         iconName = focused ? 'medical' : 'medical-outline';
-                    } else if (route.name === 'Agenda') {
+                    } else if (route.name === 'Citas') {
                         iconName = focused ? 'calendar' : 'calendar-outline';
                     }
                     return <Ionicons name={iconName} color={color} size={size} />;
@@ -47,9 +47,9 @@ const TabNavigator = () => {
                 options={{ title: 'Quiropractica' }}
             />
             <Tab.Screen
-                name="Agenda"
-                component={Agenda}
-                options={{ title: 'Agenda' }}
+                name="Citas"
+                component={Citas}
+                options={{ title: 'Citas' }}
             />
         </Tab.Navigator>
     );

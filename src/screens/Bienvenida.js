@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     texto: {
+        fontFamily: 'monospace',
         fontSize: 22,
         fontWeight: '300',
         textAlign: 'center',
@@ -49,7 +50,8 @@ const styles = StyleSheet.create({
         color: '#FFF',
     },
     title: {
-        fontSize: 18,
+        fontFamily: 'monospace',
+        fontSize: 17,
         fontWeight: '500',
         textAlign: 'center',
         color: '#757575',
