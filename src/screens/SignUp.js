@@ -98,14 +98,14 @@ export default function SignUp({ navigation }) {
 
             // Si todos los campos son válidos, proceder con la creación del usuario
             const formData = new FormData();
-            formData.append('nombre_cliente', nombre);
-            formData.append('apellido_cliente', apellido);
-            formData.append('nacimiento_cliente', fechaNacimiento)
-            formData.append('correo_cliente', correo);
-            formData.append('dui_cliente', dui);
-            formData.append('telefono_cliente', telefono);
-            formData.append('contra_cliente', contraseña);
-            formData.append('confirmar_cliente', confirmar);
+            formData.append('nombreCliente', nombre);
+            formData.append('apellidoCliente', apellido);
+            formData.append('nacimientoCliente', fechaNacimiento)
+            formData.append('correoCliente', correo);
+            formData.append('duiCliente', dui);
+            formData.append('telefonoCliente', telefono);
+            formData.append('contraCliente', contraseña);
+            formData.append('confirmarCliente', confirmar);
 
             const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cliente.php?action=signUp`, {
                 method: 'POST',
