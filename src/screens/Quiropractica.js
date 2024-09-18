@@ -65,7 +65,7 @@ export default function Quiropractica({ navigation }) {
                     keyExtractor={(item) => item.id_servicio.toString()}
                 />
             ) : (
-                <Text style={styles.titleDetalle}>No hay servicios disponibles.</Text>
+                <Text style={styles.subtitulo}>No hay servicios disponibles.</Text>
             )}
         </View>
     );
