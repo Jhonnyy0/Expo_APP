@@ -65,7 +65,7 @@ const Agenda = ({ navigation }) => {
             </TouchableOpacity>
             {/* Título de la pantalla */}
             <Text style={styles.texto}>Agenda de citas <FontAwesome name="sticky-note" size={24} color="#fff" style={styles.icon} /></Text>
-            <Text style={styles.subtitulo}>Información de los registros de citas en espera de ser aceptadas por un empleado. </Text>
+            <Text style={styles.subtitulo}>Información sobre todos los registros de citas en espera de ser aceptadas por un empleado. </Text>
             <View style={{ alignItems: 'center' }}>
                 <FontAwesome name="caret-down" size={24} color="#fff" style={styles.icon} />
             </View>
