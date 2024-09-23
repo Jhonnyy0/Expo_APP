@@ -1,17 +1,62 @@
-import React from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Image, Text, Alert, TouchableOpacity } from 'react-native';
 import InputPass from '../components/Inputs/MaskedInputPassword'
 import Boton2 from '../components/Buttons/Button2';
 import { Ionicons } from '@expo/vector-icons';
+import * as Constantes from '../utils/constantes'
 
 export default function Contraseña({ navigation }) {
 
-    const volverInicio = () => {
-        navigation.navigate('Recuperacion');
+    const ip = Constantes.IP;
+
+    const [clave, setClave] = useState('');
+    const [confirmar, setConfirmar] = useState('');
+
+    const changePassword = async () => {
+        try {
+            console.log("Datos a enviar", clave, confirmar)
+
+            // Validar los campos
+            if (!clave.trim() || !confirmar.trim()) {
+                Alert.alert("Debes llenar todos los campos");
+                return;
+            }
+
+            // Si todos los campos son válidos, proceder con la creación del usuario
+            const formData = new FormData();
+            formData.append('claveNueva', clave);
+            formData.append('confirmarClave', confirmar);
+            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cliente.php?action=changePasswordMobile`, {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+            console.log(data, "Data desde cambiar contraseña OK")
+            if (data.status) {
+                console.log(data, 'Valor de cambiar contraseña OK')
+                
+                Alert.alert('Contraseña reestablecida', '', [
+                    { text: 'OK', onPress: () => Sesion() },
+                ], { icon: 'success' });
+            }
+
+            else {
+                Alert.alert('Error', data.error);
+            }
+        }
+
+        catch (error) {
+            Alert.alert('Ocurrió un error al intentar cambiar la contraseña');
+        }
     };
 
-    const handleNavigateToPass = () => {
+    const Sesion = () => {
         navigation.navigate('Sesion');
+    };
+
+    const volverInicio = () => {
+        navigation.navigate('Recuperacion');
     };
 
     return (
@@ -28,15 +73,19 @@ export default function Contraseña({ navigation }) {
             <InputPass
                 placeHolder='Contraseña'
                 setEditable={true}
+                setValor={clave}
+                setTextChange={setClave}
             />
             <InputPass
                 placeHolder='Confirmar contraseña'
                 setEditable={true}
+                setValor={confirmar}
+                setTextChange={setConfirmar}
             />
             <Boton2
                 mode="contained"
                 textoBoton='Aceptar'
-                accionBoton={handleNavigateToPass}
+                accionBoton={changePassword}
             />
         </View>
     );
