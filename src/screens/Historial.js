@@ -65,7 +65,7 @@ const Historial = ({ navigation }) => {
             </TouchableOpacity>
             {/* Título de la pantalla */}
             <Text style={styles.texto}>Historial de citas <FontAwesome name="sticky-note" size={24} color="#fff" style={styles.icon} /></Text>
-            <Text style={styles.subtitulo}>Información del historial de todas citas terminadas o en proceso de ser finalizadas. </Text>
+            <Text style={styles.subtitulo}>Información del historial de citas terminadas o en proceso de ser finalizadas. </Text>
             <View style={{ alignItems: 'center' }}>
                 <FontAwesome name="caret-down" size={24} color="#fff" style={styles.icon} />
             </View>
