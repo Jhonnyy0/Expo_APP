@@ -51,8 +51,26 @@ export default function Contraseña({ navigation }) {
         }
     };
 
+    const handleLogout = async () => {
+        try {
+            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cliente.php?action=logOut`, {
+                method: 'GET'
+            });
+            const data = await response.json();
+            if (data.status) {
+                navigation.navigate('Bienvenida');
+                Alert.alert('Sesion cerrada');
+            } else {
+                Alert.alert('Error', data.error);
+            }
+        } catch (error) {
+            Alert.alert('Error', 'Ocurrió un error al cerrar la sesión');
+        }
+    };
+
     const Sesion = () => {
         navigation.navigate('Sesion');
+        handleLogout();
     };
 
     const volverInicio = () => {
