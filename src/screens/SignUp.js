@@ -107,7 +107,7 @@ export default function SignUp({ navigation }) {
             formData.append('contraCliente', contraseña);
             formData.append('confirmarCliente', confirmar);
 
-            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cliente.php?action=signUp`, {
+            const response = await fetch(`${ip}/expo_2024_v2/api/services/public/cliente.php?action=signUpMobile`, {
                 method: 'POST',
                 body: formData
             });
