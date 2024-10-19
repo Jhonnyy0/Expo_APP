@@ -51,7 +51,7 @@ const ServicioCard = ({ item, getDetalleServicio, navigation }) => {
                 <Text style={styles.botonTexto}>{item.tipo_servicio}</Text>
                 <Text style={styles.BotonDesc}>{item.descripcion_servicio}</Text>
                 <ImageBackground
-                    source={{ uri: `${ip}/expo_2024_v2/api/images/servicios/${item.imagen_servicio}` }}
+                    source={{ uri: `${ip}/expo_2024_v2/api/images/imagenes/${item.imagen_1}` }}
                     style={styles.boton}>
                 </ImageBackground>
             </TouchableOpacity>
